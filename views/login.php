@@ -1,4 +1,4 @@
-<h2>Utilisateur</h2>
+<h2>Log In</h2>
 <form action="" method="post">
     <div class="mb-3">
         <label class="form-label">Nom</label>
