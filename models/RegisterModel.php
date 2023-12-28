@@ -4,11 +4,11 @@ use app\core\Model;
 
 class RegisterModel extends Model{
     public int $id;
-    public string $firstname;
-    public string $lastname;
-    public string $email;
-    public string $password;
-    public string $confirmPassword;
+    public string $firstname = '';
+    public string $lastname = '';
+    public string $email = '';
+    public string $password = '';
+    public string $confirmPassword = '';
 
     public function register()
     {
@@ -35,7 +35,7 @@ class RegisterModel extends Model{
                 ],
                 [
                     self::RULE_MAX,
-                    'min' => 24
+                    'max' => 24
                 ],
             ],
             'confirmPassword' => [
