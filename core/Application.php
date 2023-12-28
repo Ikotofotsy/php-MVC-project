@@ -9,6 +9,7 @@ class Application{
     public Response $response;
     public Session $session;
     public Database $db;
+    public ?DbModel $user;
     public static Application $app;
     public Controller $controller;
 
@@ -39,5 +40,8 @@ class Application{
         echo $this->router->resolve();
     }
 
-    
+    public function login(DbModel $user)
+    {
+        
+    }
 }

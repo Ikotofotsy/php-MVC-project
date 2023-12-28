@@ -1,5 +1,8 @@
 <?php
 use app\core\form\Form;
+/**
+ * @var $model \app\models\User
+ */
 ?>
 <h2>Sing In</h2>
 
