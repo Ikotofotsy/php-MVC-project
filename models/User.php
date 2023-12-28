@@ -1,18 +1,28 @@
 <?php
 namespace app\models;
+use app\core\DbModel;
 use app\core\Model;
 
-class RegisterModel extends Model{
+class User extends DbModel{
     public int $id;
     public string $firstname = '';
     public string $lastname = '';
     public string $email = '';
     public string $password = '';
     public string $confirmPassword = '';
-
-    public function register()
+    public function tableName() : string
     {
+        return 'user';
+    }
 
+    public function attributes() : array
+    {
+        return ['firstname','lastname','email','password'];
+    }
+    public function save()
+    {
+        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+        return parent::save();
     }
     public function rules(): array
     {
@@ -25,7 +35,11 @@ class RegisterModel extends Model{
             ],
             'email' => [
                 self::RULE_REQUIRED,
-                self::RULE_EMAIL
+                self::RULE_EMAIL,
+                [
+                    self::RULE_UNIQUE, 
+                    'class' => self::class
+                ]
             ],
             'password' => [
                 self::RULE_REQUIRED,
@@ -45,6 +59,17 @@ class RegisterModel extends Model{
                     'match' => 'password'
                 ]
             ]
+        ];
+    }
+
+    public function labels() : array
+    {
+        return [
+            'firstname' => 'Firstname',
+            'lastname' => 'Lastname',
+            'email' => 'Email',
+            'password' => 'Password',
+            'confirmPassword' => 'Confirm Password',
         ];
     }
 }
