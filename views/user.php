@@ -1,3 +1,6 @@
+<?php
+    $this->title = 'user';
+?>
 <h2>Utilisateur</h2>
 <form action="" method="post">
     <div class="mb-3">

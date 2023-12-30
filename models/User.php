@@ -2,8 +2,9 @@
 namespace app\models;
 use app\core\DbModel;
 use app\core\Model;
+use app\core\UserModel;
 
-class User extends DbModel{
+class User extends UserModel{
     public int $id;
     public string $firstname = '';
     public string $lastname = '';
@@ -18,6 +19,10 @@ class User extends DbModel{
     public function attributes() : array
     {
         return ['firstname','lastname','email','password'];
+    }
+    public function primaryKey() : string
+    {
+        return 'id';
     }
     public function save()
     {
@@ -71,5 +76,9 @@ class User extends DbModel{
             'password' => 'Password',
             'confirmPassword' => 'Confirm Password',
         ];
+    }
+    public function getDisplayName() : string
+    {
+        return $this->firstname.' '.$this->lastname;
     }
 }

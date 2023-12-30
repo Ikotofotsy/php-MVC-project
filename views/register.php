@@ -3,6 +3,7 @@ use app\core\form\Form;
 /**
  * @var $model \app\models\User
  */
+    $this->title = 'register';
 ?>
 <h2>Sing In</h2>
 

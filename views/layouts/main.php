@@ -6,7 +6,7 @@ use app\core\Application;
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>DevSoc</title>
+        <title><?= $this->title ?></title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     </head>
     <body>
@@ -25,6 +25,7 @@ use app\core\Application;
                 <a class="nav-link" href="/user">Utilisateur</a>
               </li>
             </ul>
+            <?php if (Application::isGuest()) :?>
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/login">Login</a>
@@ -33,6 +34,16 @@ use app\core\Application;
                 <a class="nav-link" href="/register">Register</a>
               </li>
             </ul>
+            <?php else :?>
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/profile">Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/logout">Welcome <?= Application::$app->user->getDisplayName()?>(Logout)</a>
+              </li>
+            </ul>
+            <?php endif ?>
           </div>
         </div>
       </nav>
