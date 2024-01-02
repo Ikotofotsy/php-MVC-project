@@ -9,8 +9,8 @@ use app\core\form\Form;
 <h2>Log In</h2>
 
 <?php $form = Form::begin('', "post") ?>
-    <?= $form->field($model, 'email') ?>
-    <?= $form->field($model, 'password')->passwordField() ?>
+    <?= $form->InputField($model, 'email') ?>
+    <?= $form->InputField($model, 'password')->passwordField() ?>
     <button type="submit" class="btn btn-primary">Submit</button>
 <?php Form::end() ?>
 

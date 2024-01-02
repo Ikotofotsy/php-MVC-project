@@ -1,24 +1,27 @@
 <?php
 use app\core\form\Form;
+use app\models\User;
 /**
  * @var $model \app\models\User
  */
-    $this->title = 'register';
+$this->title = 'register';
 ?>
 <h2>Sing In</h2>
 
 <?php $form = Form::begin('', "post") ?>
     <div class="row">
         <div class="col">
-            <?= $form->field($model, 'firstname') ?>
+            <?= $form->inputField($model, 'firstname') ?>
         </div>
         <div class="col">
-            <?= $form->field($model, 'lastname') ?>
+            <?= $form->inputField($model, 'lastname') ?>
         </div>
     </div>
-    <?= $form->field($model, 'email') ?>
-    <?= $form->field($model, 'password')->passwordField() ?>
-    <?= $form->field($model, 'confirmPassword')->passwordField() ?>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <?= $form->inputField($model, 'email') ?>
+    <?= $form->inputField($model, 'password')->passwordField() ?>
+    <?= $form->inputField($model, 'confirmPassword')->passwordField() ?>
+    <?= $form->inputField($model, 'picture')->fileField()?>
+    <button type="submit" name="valide" class="btn btn-primary">Submit</button>
+    <button type="submit" name="cancel" class="btn btn-primary">Cancel</button>
 <?php Form::end() ?>
 

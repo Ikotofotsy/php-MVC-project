@@ -8,7 +8,8 @@ abstract class Model{
     public const RULE_MAX = 'max';
     public const RULE_MATCH = 'match';
     public const RULE_UNIQUE = 'unique';
-
+    public const RULE_UPLOAD_FILE = 'upload_file';
+    abstract public function rules() : array;
     public function loadData($data)
     {
         foreach($data as $key=>$value)
@@ -19,7 +20,15 @@ abstract class Model{
             }
         }
     }
-    abstract public function rules() : array;
+    public function loadFile($file)
+    {
+        $targetDirectory = "images/"; 
+        $imageFileName = $file["image"]["name"];
+        $targetPath = $targetDirectory . $imageFileName;
+        
+        return (move_uploaded_file($file["image"]["tmp_name"], $targetPath))?$imageFileName:false;
+    }
+    
     public function labels() : array
     {
         return [];
@@ -79,7 +88,6 @@ abstract class Model{
                 }
             }
         }
-
         return empty($this->errors);
     }
 
@@ -118,5 +126,7 @@ abstract class Model{
     {
         return $this->errors[$attribute][0] ?? false;
     }
+
+    
 
 }

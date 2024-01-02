@@ -5,7 +5,7 @@ use app\core\Model;
 class Form{
     public static function begin($action, $method)
     {
-        echo sprintf('<form action="%s" method="%s">', $action, $method);
+        echo sprintf('<form action="%s" method="%s" enctype="multipart/form-data">', $action, $method);
         return new Form();
     }
 
@@ -14,9 +14,13 @@ class Form{
         echo '</form>';
     }
 
-    public function field(Model $model, $attribute)
+    public function inputField(Model $model, $attribute)
     {
-        return new Field($model, $attribute);
+        return new InputField($model, $attribute);
+    }
+    public function DatalistField(?Model $model, $attribute)
+    {
+        return new DatalistField($model, $attribute);
     }
 }
 ?>

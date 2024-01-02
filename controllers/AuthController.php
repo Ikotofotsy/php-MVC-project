@@ -36,14 +36,23 @@ class AuthController extends Controller{
         $user = new User();
         if($request->isPost())
         {
-            $user->loadData($request->getBody());
-
-            if($user->validate() && $user->save())
+            if($request->getActionButton() === 'valide')
             {
-                Application::$app->session->setFlash('success','Thinks for registring');
+                $data = $request->getBody();
+                
+                $user->loadData($data);
+                if($user->validate() && $user->save())
+                {
+                    Application::$app->session->setFlash('success','Thinks for registring');
+                    Application::$app->response->redirect('/');
+                    exit();
+                }
+            }
+            else if($request->getActionButton() === 'cancel'){
                 Application::$app->response->redirect('/');
                 exit();
             }
+            
         }
         $this->setLayout('auth');
         return $this->render('register', ['model' => $user]);

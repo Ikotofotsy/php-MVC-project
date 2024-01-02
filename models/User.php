@@ -11,6 +11,7 @@ class User extends UserModel{
     public string $email = '';
     public string $password = '';
     public string $confirmPassword = '';
+    public string $picture = '';
     public function tableName() : string
     {
         return 'user';
@@ -18,7 +19,7 @@ class User extends UserModel{
 
     public function attributes() : array
     {
-        return ['firstname','lastname','email','password'];
+        return ['firstname','lastname','email','password','picture'];
     }
     public function primaryKey() : string
     {
@@ -63,7 +64,10 @@ class User extends UserModel{
                     self::RULE_MATCH,
                     'match' => 'password'
                 ]
-            ]
+            ],
+            'picture' => [
+                self::RULE_REQUIRED,
+            ],
         ];
     }
 
@@ -75,6 +79,7 @@ class User extends UserModel{
             'email' => 'Email',
             'password' => 'Password',
             'confirmPassword' => 'Confirm Password',
+            'picture' => 'Insert picture'
         ];
     }
     public function getDisplayName() : string

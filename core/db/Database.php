@@ -3,6 +3,7 @@ namespace app\core\db;
 
 use app\core\Application;
 use PDO;
+use PDOException;
 
 class Database{
     public PDO $pdo;
@@ -34,10 +35,14 @@ class Database{
             $className = pathinfo($migration, PATHINFO_FILENAME);
             $instance = new $className();
             $this->log("Applying migration $migration");
-            $instance->up();
-            $this->log("Applied migration $migration");
-            
-            $newMigrations[] = $migration;
+            try{
+
+                $instance->up();
+                $this->log("Applied migration $migration");
+                $newMigrations[] = $migration;
+            }catch(PDOException $e){
+                $this->log("Error " . $e->getCode() . " - " . $e->getMessage() . PHP_EOL . "In " .  $e->getFile() . "at line " . $e->getLine());
+            }
         }
 
         if(!empty($newMigrations))
