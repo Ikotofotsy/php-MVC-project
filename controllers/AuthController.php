@@ -18,30 +18,46 @@ class AuthController extends Controller{
         $loginForm = new LoginForm();
         if($request->isPost())
         {
-            $loginForm->loadData($request->getBody());
-
-            if($loginForm->validate() && $loginForm->login())
+            if($request->getActionButton() === 'submit')
             {
-                $response->redirect('/');
-                return;
+                $loginForm->loadData($request->getBody());
+                if($loginForm->validate() && $loginForm->login())
+                {
+                    $response->redirect('/');
+                    return;
+                }
             }
+            else if($request->getActionButton() === 'cancel'){
+                Application::$app->response->redirect('/');
+                exit();
+            }
+            
         }
         $this->setLayout('auth');
         return $this->render('login', ['model' => $loginForm]);
     }
     public function register(Request $request)
     {
-        $errors = [];
-        
         $user = new User();
         if($request->isPost())
         {
-            if($request->getActionButton() === 'valide')
+            if($request->getActionButton() === 'submit')
             {
                 $data = $request->getBody();
                 
                 $user->loadData($data);
                 if($user->validate() && $user->save())
+                {
+                    Application::$app->session->setFlash('success','Thinks for registring');
+                    Application::$app->response->redirect('/');
+                    exit();
+                }
+            }
+            if($request->getActionButton() === 'update')
+            {
+                $data = $request->getBody();
+                $user->loadData($data);
+                if($user->validate() && $user->update(Application::$app->user->primaryKeyValues()))
                 {
                     Application::$app->session->setFlash('success','Thinks for registring');
                     Application::$app->response->redirect('/');

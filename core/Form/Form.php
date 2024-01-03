@@ -18,9 +18,13 @@ class Form{
     {
         return new InputField($model, $attribute);
     }
-    public function DatalistField(?Model $model, $attribute)
+    public function datalistField(?Model $model, $attribute)
     {
         return new DatalistField($model, $attribute);
+    }
+    public function textarea(Model $model, $attribute)
+    {
+        return new Textarea($model, $attribute);
     }
 }
 ?>

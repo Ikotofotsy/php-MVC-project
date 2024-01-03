@@ -44,7 +44,8 @@ class Application{
         if($primaryValue)
         {
             $user = new User(); 
-            $primaryKey = $user->primaryKey();
+            $user->setPrimaryKeyValue($primaryValue);
+            $primaryKey = implode('',$user->primaryKey());
             $this->user = $user->findOne([$primaryKey => $primaryValue]);
         }else
         {
@@ -72,7 +73,7 @@ class Application{
     public function login(DbModel $user)
     {
         $this->user = $user;
-        $primaryKey = $user->primaryKey();
+        $primaryKey = implode('',$user->primaryKey());
         $primaryValue = $user->{$primaryKey};
         $this->session->set('user',$primaryValue);
         return true;
@@ -81,5 +82,9 @@ class Application{
     {
         $this->user = null;
         $this->session->remove('user');
+    }
+    public function rootSrcImg() : string
+    {
+        return str_replace('\\','/',self::$ROOT_DIR);
     }
 }

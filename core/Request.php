@@ -60,7 +60,7 @@ class Request{
     {
         if ($_FILES["picture"]["error"] === 0) 
         {
-            $targetDirectory = Application::$app::$ROOT_DIR."/images/"; 
+            $targetDirectory = Application::$app::$ROOT_DIR."/public/images/"; 
             $imageFileName = $_FILES["picture"]["name"];
             $targetPath = $targetDirectory . $imageFileName;
             return (move_uploaded_file($_FILES["picture"]["tmp_name"], $targetPath))?$imageFileName:'defaul_picture';

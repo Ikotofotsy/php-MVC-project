@@ -9,8 +9,11 @@ abstract class Field{
     public const TYPE_PASSWORD = 'password';
     public const TYPE_NUMBER = 'number';
     public const TYPE_FILE = 'file';
+    public const TYPE_HIDDEN = 'hidden';
+    public const DISPLAY_NONE = 'd-none';
 
     public string $type;
+    public string $display = '';
     public Model|DbModel $model;
     public string $attribute;
 
@@ -32,6 +35,12 @@ abstract class Field{
     public function fileField()
     {
         $this->type = self::TYPE_FILE;
+
+        return $this;
+    }
+    public function displayNone()
+    {
+        $this->display = self::DISPLAY_NONE;
 
         return $this;
     }

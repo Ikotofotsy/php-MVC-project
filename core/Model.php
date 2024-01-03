@@ -86,7 +86,7 @@ abstract class Model{
                         $this->addErrorForRule($attribute, self::RULE_UNIQUE, ['field' => $this->getLabel($attribute)]);
                     }
                 }
-            }
+            } 
         }
         return empty($this->errors);
     }
