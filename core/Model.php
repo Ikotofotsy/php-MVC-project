@@ -14,6 +14,16 @@ abstract class Model{
     {
         foreach($data as $key=>$value)
         {
+            if(is_array($value))
+            {
+                foreach($value as $k => $i)
+                {
+                    if(property_exists($this, $k))
+                    {
+                        $this->{$k} = $i;
+                    }
+                }
+            }
             if(property_exists($this, $key))
             {
                 $this->{$key} = $value;
@@ -90,7 +100,6 @@ abstract class Model{
         }
         return empty($this->errors);
     }
-
     private function addErrorForRule(string $attribute, string $rule, $params = [])
     {
         $message = $this->errorMessage()[$rule] ?? '';
@@ -126,7 +135,5 @@ abstract class Model{
     {
         return $this->errors[$attribute][0] ?? false;
     }
-
-    
 
 }

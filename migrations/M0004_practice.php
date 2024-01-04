@@ -10,6 +10,7 @@ class M0004_practice{
             user INT,
             langage INT,
             level INT,
+            exp INT,
             PRIMARY KEY(user,langage,level)
         )";
         $db->pdo->exec($sql);

@@ -99,4 +99,6 @@ class User extends UserModel{
     {
         return $this->firstname.' '.$this->lastname;
     }
+
+    
 }

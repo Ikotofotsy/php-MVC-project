@@ -21,39 +21,53 @@ abstract class DbModel extends Model{
         {
             $statement->bindValue(":$attribute",$this->{$attribute});
         }
-        $statement->execute();
-
+        try{
+            $statement->execute();
+        }
+        catch(\PDOException $e)
+        {
+            Application::$app->session->setFlash('warning',$e->getMessage());
+            Application::$app->response->redirect('/profile');
+            exit();
+        }
         return true;
     }
-    public function update($pk)
+    public function update()
     {
         $tableName = $this->tableName();
         $attributes = $this->attributes();
         $primaryKeys = $this->primaryKey();
-        $primaryKeys = implode('AND ',array_map(fn($id) => "$id = :$id", $primaryKeys));
+        $wherePrimaryKeys = implode('AND ',array_map(fn($id) => "$id = :$id", $primaryKeys));
         $columns = [];
         $values = [];
+        $valuesKeys = [];
         foreach($attributes as $attribute)
         {
-            if(!empty($this->{$attribute}))
+            if(!in_array($attribute, $primaryKeys))
             {
                 $values[$attribute] = $this->{$attribute};
                 $columns[] = $attribute . ' = ' . ':'. $attribute;
             }
+            else
+            {
+                $valuesKeys[$attribute] = $this->{$attribute};
+            }
+            
+            
         }
         $columns = implode(',',$columns);
-        $sql = "UPDATE $tableName SET $columns WHERE $primaryKeys";
+        $sql = "UPDATE $tableName SET $columns WHERE $wherePrimaryKeys";
         
         $statement = self::prepare($sql);
         foreach($values as $column=>$value)
         {
             $statement->bindValue(":$column",$value);
         }
-        foreach($pk as $id=>$value)
+        foreach($valuesKeys as $column=>$value)
         {
-            $statement->bindValue(":$id",$value);
+            $statement->bindValue(":$column",$value);
         }
-        
+        $statement->execute();
         return true;
     }
     public function findOne($where)

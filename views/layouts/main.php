@@ -53,6 +53,11 @@ use app\core\Application;
             <?= Application::$app->session->getFlash('success')?>
           </div>
         <?php endif ?>
+        <?php if(Application::$app->session->getFlash('warning')):?>
+          <div class="alert alert-warning">
+            <?= Application::$app->session->getFlash('warning')?>
+          </div>
+        <?php endif ?>
         {{content}}
       </main>
 

@@ -25,6 +25,9 @@ $app->router->get('/', [SiteController::class, 'home']);
 $app->router->get('/user', [SiteController::class, 'user']);
 $app->router->post('/user', [SiteController::class, 'handleUser']);
 
+$app->router->get('/userUpdate', [SiteController::class, 'userUpdate']);
+$app->router->post('/userUpdate', [SiteController::class, 'userUpdate']);
+
 $app->router->get('/login', [AuthController::class, 'login']);
 $app->router->post('/login', [AuthController::class, 'login']);
 
@@ -33,7 +36,13 @@ $app->router->post('/register', [AuthController::class, 'register']);
 
 $app->router->get('/logout', [AuthController::class, 'logout']);
 
-$app->router->get('/profile', [AuthController::class, 'profile']);
+$app->router->get('/profile', [SiteController::class, 'profile']);
+
+$app->router->get('/addLangageForUser', [SiteController::class, 'addLangageForUser']);
+$app->router->post('/addLangageForUser', [SiteController::class, 'addLangageForUser']);
+
+$app->router->get('/langage', [SiteController::class, 'langage']);
+$app->router->post('/langage', [SiteController::class, 'langage']);
 
 $app->run();
 

@@ -1,5 +1,8 @@
 <?php
 namespace app\core;
+
+use app\core\exceptions\NotFoundException;
+
 class View{
     public string $title = '';
     public function renderView($view, $params = [])
@@ -20,7 +23,7 @@ class View{
         }
         ob_start();
         require_once Application::$ROOT_DIR."/views/layouts/$layout.php";
-
+        
         return ob_get_clean();
     }
     protected function renderOnlyView($view, $params)
@@ -31,7 +34,7 @@ class View{
         }
         ob_start();
         require_once Application::$ROOT_DIR."/views/$view.php";
-
+        
         return ob_get_clean();
     }
 }

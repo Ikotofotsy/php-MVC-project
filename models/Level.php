@@ -2,28 +2,24 @@
 namespace app\models;
 use app\core\db\DbModel;
 use app\core\Model;
-class Langage extends DbModel{
+class Level extends DbModel{
     public int $id;
-    public string $langage = '';
+    public string $level = '';
     public function primaryKeyValues() : array
     {
         return ['id' => $this->id]??null;
     }
     public function rules() : array
     {
-        return [
-            'langage' => [
-                self::RULE_REQUIRED
-            ]
-        ];
+        return [];
     }
     public function tableName() : string
     {
-        return 'langage';
+        return 'level';
     }
     public function attributes() :array
     {
-        return ['langage'];
+        return [];
     }
     public function primaryKey() : array
     {
@@ -32,7 +28,7 @@ class Langage extends DbModel{
     public function labels() : array
     {
         return [
-            'langage' => 'Langage'
+            'level' => 'Level'
         ];
     }
 }

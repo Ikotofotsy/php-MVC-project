@@ -53,17 +53,6 @@ class AuthController extends Controller{
                     exit();
                 }
             }
-            if($request->getActionButton() === 'update')
-            {
-                $data = $request->getBody();
-                $user->loadData($data);
-                if($user->validate() && $user->update(Application::$app->user->primaryKeyValues()))
-                {
-                    Application::$app->session->setFlash('success','Thinks for registring');
-                    Application::$app->response->redirect('/');
-                    exit();
-                }
-            }
             else if($request->getActionButton() === 'cancel'){
                 Application::$app->response->redirect('/');
                 exit();
@@ -78,9 +67,5 @@ class AuthController extends Controller{
     {
         Application::$app->logout();
         $response->redirect('/');
-    }
-    public function profile()
-    {
-        return $this->render('profile');
     }
 }

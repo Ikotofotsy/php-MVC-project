@@ -2,12 +2,10 @@
 use app\core\Application;
 use app\core\form\Form;
 use app\models\User;
-/**
- * @var $model \app\models\User
- */
+$model = Application::$app->user;
 $this->title = 'register';
 ?>
-<h2>Sing In</h2>
+<h2>Update</h2>
 
 <?php $form = Form::begin('', "post") ?>
     <div class="row">
@@ -18,12 +16,8 @@ $this->title = 'register';
             <?= $form->inputField($model, 'lastname') ?>
         </div>
     </div>
-    <?= $form->inputField($model, 'email') ?>
-    <?= $form->inputField($model, 'password')->passwordField() ?>
-    <?= $form->inputField($model, 'confirmPassword')->passwordField() ?>
-    <?= $form->inputField($model, 'picture')->fileField()?>
     <?= $form->textarea($model, 'about')?>
-    <button type="submit" name="valide" class="btn btn-primary">Submit</button>
+    <button type="submit" name="update" class="btn btn-primary">Update</button>
     <button type="submit" name="cancel" class="btn btn-primary">Cancel</button>
 <?php Form::end() ?>
 
